@@ -1,0 +1,23 @@
+{
+  "name": "replace-special-characters",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+		"name": "Roberto Alves",
+		"email": "robertosousa1@uol.com.br"
+  },
+  "files": [
+		"index.js"
+  ],
+  "keywords": [
+		"replace",
+		"regex",
+		"regexp",
+		"regular",
+		"expression",
+		"string",
+		"special",
+		"characters"
+	]
+}
