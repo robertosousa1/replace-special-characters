@@ -97,7 +97,7 @@ module.exports = function (content) {
   }
 
   function replaceSpecialCharacters (str) {
-    if (!str === undefined || !str === null) {      
+    if (str !== undefined && str !== null) {      
       return str.replace(/[^\u0000-\u007E]/g, function (a) {
         return diacriticsMap[a] || a
       })
