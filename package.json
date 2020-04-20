@@ -1,6 +1,6 @@
 {
   "name": "replace-special-characters",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Replace special characters to their simple characters",
   "main": "index.js",
   "repository": {
