@@ -1,11 +1,14 @@
 {
   "name": "replace-special-characters",
-  "version": "1.1",
+  "version": "1.1.0",
   "description": "Replace special characters to their simple characters",
-  "main": "src/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
+    "check": "npx npm-check -s -u",
     "test": "jest --passWithNoTests --watch",
-    "test:staged": "jest --passWithNoTests"
+    "test:staged": "npm test --findRelatedTests",
+    "test:ci": "npm test --coverage",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "coveralls": "^3.1.0",
     "eslint": "^7.24.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-import": "^2.22.1",
