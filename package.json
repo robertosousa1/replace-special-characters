@@ -1,13 +1,14 @@
 {
   "name": "replace-special-characters",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Replace special characters to their simple characters",
   "main": "dist/src/index.js",
   "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
     "check": "npx npm-check -s -u",
     "test": "jest --passWithNoTests --watch",
     "test:staged": "npm test --findRelatedTests",
-    "test:ci": "npm test --coverage",
+    "test:ci": "npm test -- --coverage",
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "repository": {
@@ -51,5 +52,8 @@
     "npm-check": "^5.9.2",
     "ts-jest": "^26.5.4",
     "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "rimraf": "^3.0.2"
   }
 }
