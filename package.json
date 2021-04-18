@@ -1,8 +1,8 @@
 {
   "name": "replace-special-characters",
-  "version": "1.2.0",
+  "version": "1.2.5",
   "description": "Replace special characters to their simple characters",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "check": "npx npm-check -s -u",
