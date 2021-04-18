@@ -21,6 +21,3 @@ jobs:
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: coverallsapp/github-action@v1.1.2
-        with:
-          github-token: ${{ secrets.COVERALLS_TOKEN }}
