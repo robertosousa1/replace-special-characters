@@ -1,4 +1,4 @@
-<p align="center"> 
+<p align="center">
 
 [![Known Vulnerabilities](https://snyk.io/test/github/robertosousa1/replace-special-characters/badge.svg)](https://snyk.io/test/github/robertosousa1/replace-special-characters)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
@@ -14,7 +14,7 @@ In a validation of a very large text, there may be cases in which a word is null
  ## Install
 
     $ npm install replace-special-characters
-or 
+or
 
     $ yarn add replace-special-characters
 
@@ -41,4 +41,4 @@ This project is under the MIT license. See the [LICENSE]([[https://github.com/ro
 
 ----------
 
-Made with by Roberto Alves  👋  [Get in touch!](https://www.linkedin.com/in/robertosousa01/)
+Made with by Roberto Alves  👋  [Get in touch!](https://www.linkedin.com/in/robertosousa01)
