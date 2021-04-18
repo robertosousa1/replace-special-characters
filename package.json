@@ -8,7 +8,7 @@
     "check": "npx npm-check -s -u",
     "test": "jest --passWithNoTests --watch",
     "test:staged": "npm test --findRelatedTests",
-    "test:ci": "npm test -- --coverage",
+    "test:ci": "npx jest --ci",
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "repository": {
