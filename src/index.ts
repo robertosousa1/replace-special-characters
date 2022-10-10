@@ -1,6 +1,6 @@
 import diacritics from './diacritics'
 
-function replaceSpecialCharacters (text: string): String {
+function replaceSpecialCharacters (text: string): string {
   const diacriticsMap = {}
   for (let i = 0; i < diacritics.length; i++) {
     const letters = diacritics[i].letters
@@ -9,7 +9,7 @@ function replaceSpecialCharacters (text: string): String {
     }
   }
 
-  function replace (refinedText: string): String {
+  function replace (refinedText: string): string {
     if (refinedText) {
       return refinedText.replace(/[^\u0000-\u007E]/g, function (a) {
         return diacriticsMap[a] || a
