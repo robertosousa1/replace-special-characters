@@ -1,0 +1,54 @@
+# replace-special-characters
+
+A zero-dependency JavaScript/TypeScript library that replaces accented and special Latin characters with ASCII equivalents.
+
+Runtime compatibility:
+- Node.js 12 or newer for consumers
+- Node.js 20 or newer for contributors
+
+Use it for:
+- accent-insensitive search normalization
+- slug preparation
+- optional text field normalization
+- replacing Latin diacritics and ligatures
+
+Do not use it for:
+- full Unicode transliteration for every language
+- locale-aware normalization
+- removing emoji or unmapped symbols
+
+Main API:
+replaceSpecialCharacters(value)
+
+Input:
+string | null | undefined
+
+Output:
+string | null | undefined
+
+Runtime behavior:
+- known accented and special Latin characters are replaced with ASCII equivalents
+- recognized Latin characters with common combining marks are normalized before replacement when supported by the runtime
+- supplementary mathematical Latin letters are converted to ASCII; mathematical Greek letters and digits remain unchanged
+- characters outside the configured mappings are not normalized
+- thorn, eng, and kra are supported: Þ/þ => TH/th, Ŋ/ŋ => N/n, ĸ => k
+- for backward compatibility, ß/ẞ retain their historical s/S mapping
+- null, undefined, and empty strings are returned unchanged
+- legacy falsy non-string inputs (false, 0, and NaN) are returned unchanged but are outside the typed API
+- truthy non-string inputs throw TypeError
+- unmapped non-ASCII characters are returned unchanged
+
+CommonJS:
+const replaceSpecialCharacters = require('replace-special-characters')
+
+TypeScript:
+import replaceSpecialCharacters = require('replace-special-characters')
+
+Examples:
+replaceSpecialCharacters('JäváSçrîpt') => 'JavaScript'
+replaceSpecialCharacters('Cafe\u0301') => 'Cafe'
+replaceSpecialCharacters('Æther Œuvre') => 'AEther OEuvre'
+replaceSpecialCharacters('Þing Ŋŋ ĸ') => 'THing Nn k'
+replaceSpecialCharacters('𝕽') => 'R'
+replaceSpecialCharacters('Olá, São Paulo!') => 'Ola, Sao Paulo!'
+replaceSpecialCharacters(null) => null
