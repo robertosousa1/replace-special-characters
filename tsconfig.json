@@ -1,18 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
     "module": "commonjs",
+    "moduleResolution": "node",
     "target": "es2019",
     "esModuleInterop": true,
-    "declaration": true,
-    "sourceMap": true,
-    "rootDirs": ["src", "tests"],
-    "baseUrl": "src",
-    "paths": {
-      "~/tests/*": ["../tests/*"],
-      "~/*": ["*"]
-    }
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true
   },
-  "include": ["src", "tests"],
-  "exclude": []
+  "include": ["src", "tests", "vitest.config.ts"]
 }
