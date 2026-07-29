@@ -37,7 +37,7 @@ yarn add replace-special-characters
 
 ## Runtime compatibility
 
-The published package supports Node.js 12 and newer and has no runtime dependencies. Development requires Node.js 20 or newer.
+The published package supports Node.js 12 and newer and has no runtime dependencies. Development requires Node.js 20.19 or newer.
 
 Compatibility with end-of-life Node.js releases is maintained for existing applications, but an actively supported Node.js LTS release is recommended for security.
 
@@ -148,16 +148,16 @@ replaceSpecialCharacters('JavaScript 🚀')
 
 ## Contributing
 
-Local development requires Node.js 20 or newer.
+Local development requires Node.js 20.19 or newer.
 
 ```bash
 npm ci
 npm run check
 ```
 
-Fork the repository, create a branch, make your changes, and open a pull request. Please include tests for behavior changes.
+Fork the repository, create a branch, make your changes, and open a pull request. Please include tests for behavior changes and use a Conventional Commit title.
 
-See [CHANGELOG.md](CHANGELOG.md) for release notes.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for commit conventions and [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## License
 

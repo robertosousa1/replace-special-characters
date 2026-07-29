@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## 2.0.0 - Unreleased
+## 2.0.0 - 2026-07-29
 
 ### Breaking changes
 
@@ -24,7 +24,8 @@ All notable changes to this project are documented in this file.
 - Published files are restricted to the runtime, declarations, documentation, and license.
 - Tests now use Vitest and enforce 100% coverage.
 - Linting and formatting now use Biome.
-- CI publishes tagged releases with npm provenance.
+- Releases and changelog updates are automated with Release Please.
+- npm publishing uses trusted publishing with provenance.
 
 ### Security
 
