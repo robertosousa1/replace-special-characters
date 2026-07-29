@@ -5,8 +5,7 @@
   "release-type": "node",
   "packages": {
     ".": {
-      "package-name": "replace-special-characters",
-      "release-as": "2.0.1"
+      "package-name": "replace-special-characters"
     }
   }
 }
