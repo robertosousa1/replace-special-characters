@@ -1,8 +1,10 @@
 // biome-ignore lint/style/useNodejsImportProtocol: The smoke test must run on Node.js 12.
 const assert = require('assert')
+// biome-ignore lint/style/useNodejsImportProtocol: The smoke test must run on Node.js 12.
+const path = require('path')
 const packageName = process.argv[2]
 const packagePath = packageName
-  ? require.resolve(packageName, { paths: [process.cwd()] })
+  ? require.resolve(path.join(process.cwd(), 'node_modules', packageName))
   : '..'
 const replaceSpecialCharacters = require(packagePath)
 
