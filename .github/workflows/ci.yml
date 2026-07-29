@@ -25,7 +25,7 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-        run: printf '%s\n' "$PR_TITLE" | npm run lint:commit -- --verbose
+        run: printf '%s\n' "$PR_TITLE" | npm run lint:commit
       - run: npm run check
       - run: mkdir -p runtime-package
       - run: npm pack --pack-destination runtime-package
