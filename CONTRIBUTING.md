@@ -1,6 +1,6 @@
 # Contributing
 
-Development requires Node.js 20.19 or newer.
+Development requires Node.js 22.12 or newer.
 
 ```sh
 npm ci

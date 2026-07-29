@@ -12,13 +12,6 @@ updates:
       - dependency-name: typescript
         update-types:
           - version-update:semver-major
-      - dependency-name: "@commitlint/config-conventional"
-        update-types:
-          - version-update:semver-major
-      - dependency-name: "@commitlint/lint"
-        update-types:
-          - version-update:semver-major
-
   - package-ecosystem: github-actions
     directory: /
     schedule:
