@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.0.1](https://github.com/robertosousa1/replace-special-characters/compare/v2.0.0...v2.0.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* publish refreshed package documentation ([#17](https://github.com/robertosousa1/replace-special-characters/issues/17)) ([401ea25](https://github.com/robertosousa1/replace-special-characters/commit/401ea2583fc0d230a23b8afb44fa749dea68fc52))
+
 ## 2.0.0 - 2026-07-29
 
 ### Breaking changes

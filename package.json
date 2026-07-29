@@ -1,6 +1,6 @@
 {
   "name": "replace-special-characters",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Remove accents and replace special Latin characters with plain equivalents",
   "type": "commonjs",
   "main": "dist/index.js",
