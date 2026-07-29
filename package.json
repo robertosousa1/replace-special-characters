@@ -75,10 +75,10 @@
   "homepage": "https://github.com/robertosousa1/replace-special-characters#readme",
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",
-    "@commitlint/config-conventional": "^20.5.3",
-    "@commitlint/lint": "^20.5.3",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@commitlint/lint": "^21.2.0",
     "@vitest/coverage-v8": "^4.1.10",
-    "typescript": "^5.9.2",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   }
 }
