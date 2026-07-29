@@ -1,6 +1,13 @@
 {
   "files": {
-    "includes": ["src/**/*.ts", "tests/**/*.ts", "tests/**/*.cjs", "vitest.config.ts"]
+    "includes": [
+      "src/**/*.ts",
+      "tests/**/*.ts",
+      "tests/**/*.cjs",
+      "scripts/**/*.cjs",
+      "commitlint.config.cjs",
+      "vitest.config.ts"
+    ]
   },
   "formatter": {
     "enabled": true,

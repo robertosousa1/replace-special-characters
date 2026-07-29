@@ -15,6 +15,7 @@
   "files": [
     "dist",
     "README.md",
+    "CONTRIBUTING.md",
     "CHANGELOG.md",
     "LICENSE",
     "llms.txt"
@@ -26,7 +27,7 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": ">=20",
+      "version": ">=20.19.0",
       "onFail": "error"
     }
   },
@@ -34,17 +35,15 @@
     "clean": "node -e \"const fs = require('fs'); for (const path of ['dist', 'coverage']) fs.rmSync(path, { recursive: true, force: true })\"",
     "clean:dist": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "npm run clean:dist && tsc -p tsconfig-build.json",
-    "lint": "biome lint src tests vitest.config.ts",
-    "lint:fix": "biome check --write src tests vitest.config.ts",
+    "lint": "biome lint src tests scripts commitlint.config.cjs vitest.config.ts",
+    "lint:commit": "node scripts/lint-commit.cjs",
+    "lint:fix": "biome check --write src tests scripts commitlint.config.cjs vitest.config.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ci": "vitest run --coverage",
     "check": "npm run lint && npm run typecheck && npm run test:ci && npm run build",
-    "prepublishOnly": "npm run check",
-    "release:patch": "npm version patch -m 'release: %s'",
-    "release:minor": "npm version minor -m 'release: %s'",
-    "release:major": "npm version major -m 'release: %s'"
+    "prepublishOnly": "npm run check"
   },
   "repository": {
     "type": "git",
@@ -76,6 +75,8 @@
   "homepage": "https://github.com/robertosousa1/replace-special-characters#readme",
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",
+    "@commitlint/config-conventional": "^20.5.3",
+    "@commitlint/lint": "^20.5.3",
     "@vitest/coverage-v8": "^4.1.10",
     "typescript": "^5.9.2",
     "vitest": "^4.1.10"
