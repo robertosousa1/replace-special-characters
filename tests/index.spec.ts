@@ -100,6 +100,7 @@ describe('replaceSpecialCharacters function', () => {
     ['Danish and Norwegian', 'Ørsted smørrebrød', 'Orsted smorrebrod'],
     ['Turkish', 'Işık', 'Isik'],
     ['Maltese', 'Ħamrun ħobż', 'Hamrun hobz'],
+    ['Icelandic', 'Guðrún GUÐRÚN', 'Gudrun GUDRUN'],
   ])('Should convert %s letters without a Unicode decomposition', (_language, input, output) => {
     expect(replaceSpecialCharacters(input)).toEqual(output)
   })
@@ -225,9 +226,16 @@ describe('replaceSpecialCharacters function', () => {
 
     for (const [character, base] of mappedCharacters) {
       for (const partner of [character.toLowerCase(), character.toUpperCase()]) {
+        // Multi-character case mappings, such as ß to SS, have no single partner to compare.
+        if (Array.from(partner).length !== 1) {
+          continue
+        }
+
         const partnerBase = mappedCharacters.get(partner)
 
-        if (partnerBase !== undefined && partnerBase.toLowerCase() !== base.toLowerCase()) {
+        if (partnerBase === undefined) {
+          mismatches.push(`${character} -> ${base}, ${partner} is not mapped`)
+        } else if (partnerBase.toLowerCase() !== base.toLowerCase()) {
           mismatches.push(`${character} -> ${base}, ${partner} -> ${partnerBase}`)
         }
       }
