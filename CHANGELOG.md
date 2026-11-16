@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.0.3](https://github.com/robertosousa1/replace-special-characters/compare/v2.0.2...v2.0.3) (2026-11-16)
+
+
+### Bug Fixes
+
+* map the missing case forms of ð, Ɇ, Ƕ, and Ↄ ([#30](https://github.com/robertosousa1/replace-special-characters/issues/30)) ([0e4f954](https://github.com/robertosousa1/replace-special-characters/commit/0e4f9544fa9d27478f2d407f517ba39f38329cc7))
+* remove combining marks left after recognized letters ([#31](https://github.com/robertosousa1/replace-special-characters/issues/31)) ([a88c617](https://github.com/robertosousa1/replace-special-characters/commit/a88c617522a7468be836b32f2cceee1c03aeb3b9))
+
 ## [2.0.2](https://github.com/robertosousa1/replace-special-characters/compare/v2.0.1...v2.0.2) (2026-11-16)
 
 
