@@ -62,6 +62,22 @@ describe('replaceSpecialCharacters function', () => {
     expect(replaceSpecialCharacters('a\u0302\u0301 u\u0308\u0301')).toEqual('a u')
   })
 
+  test('Should remove combining marks that cannot be composed with a recognized letter', () => {
+    expect(replaceSpecialCharacters('İstanbul'.toLowerCase())).toEqual('istanbul')
+    expect(replaceSpecialCharacters('Ọ\u0300yọ\u0301 ẹ\u0301')).toEqual('Oyo e')
+    expect(replaceSpecialCharacters('x\u0301 i\u0307\u0301')).toEqual('x i')
+  })
+
+  test('Should return the same result when applied twice', () => {
+    const inputs = ['ä\u0301', 'Ọ\u0300yọ\u0301', 'Cafe\u0301', 'α\u0301', 'JäváSçrîpt 𝕽 🚀']
+
+    for (const input of inputs) {
+      const output = replaceSpecialCharacters(input)
+
+      expect(replaceSpecialCharacters(output)).toEqual(output)
+    }
+  })
+
   test('Should not normalize characters outside the configured mappings', () => {
     expect(replaceSpecialCharacters('Ω K Å 豈 α\u0301')).toEqual('Ω K Å 豈 α\u0301')
   })

@@ -28,7 +28,7 @@ string | null | undefined
 
 Runtime behavior:
 - known accented and special Latin characters are replaced with ASCII equivalents
-- recognized Latin characters with common combining marks are normalized before replacement when supported by the runtime
+- recognized Latin characters with common combining marks are normalized before replacement when supported by the runtime; marks that cannot be combined with the letter are removed
 - supplementary mathematical Latin letters are converted to ASCII; mathematical Greek letters and digits remain unchanged
 - characters outside the configured mappings are not normalized
 - thorn, eng, and kra are supported: Þ/þ => TH/th, Ŋ/ŋ => N/n, ĸ => k
