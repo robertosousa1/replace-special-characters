@@ -141,7 +141,7 @@ The published package supports Node.js 12 and newer and has no runtime dependenc
 
 Compatibility with end-of-life Node.js releases is maintained for existing applications, but an actively supported Node.js LTS release is recommended for security.
 
-Recognized Latin characters followed by common combining marks are normalized before replacement when the runtime supports `String.prototype.normalize`.
+Recognized Latin characters followed by common combining marks are normalized before replacement when the runtime supports `String.prototype.normalize`. Marks that cannot be combined with the letter are removed.
 
 Mathematical Latin letters represented by supplementary Unicode code points are converted to their ASCII equivalents. Mathematical Greek letters, digits, and other supplementary symbols remain unchanged.
 

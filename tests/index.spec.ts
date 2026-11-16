@@ -58,8 +58,24 @@ describe('replaceSpecialCharacters function', () => {
   })
 
   test('Should convert letters with multiple combining marks in any order', () => {
-    expect(replaceSpecialCharacters('Việt Việt')).toEqual('Viet Viet')
-    expect(replaceSpecialCharacters('ấ ǘ')).toEqual('a u')
+    expect(replaceSpecialCharacters('Vie\u0323\u0302t Vie\u0302\u0323t')).toEqual('Viet Viet')
+    expect(replaceSpecialCharacters('a\u0302\u0301 u\u0308\u0301')).toEqual('a u')
+  })
+
+  test('Should remove combining marks that cannot be composed with a recognized letter', () => {
+    expect(replaceSpecialCharacters('İstanbul'.toLowerCase())).toEqual('istanbul')
+    expect(replaceSpecialCharacters('Ọ\u0300yọ\u0301 ẹ\u0301')).toEqual('Oyo e')
+    expect(replaceSpecialCharacters('x\u0301 i\u0307\u0301')).toEqual('x i')
+  })
+
+  test('Should return the same result when applied twice', () => {
+    const inputs = ['ä\u0301', 'Ọ\u0300yọ\u0301', 'Cafe\u0301', 'α\u0301', 'JäváSçrîpt 𝕽 🚀']
+
+    for (const input of inputs) {
+      const output = replaceSpecialCharacters(input)
+
+      expect(replaceSpecialCharacters(output)).toEqual(output)
+    }
   })
 
   test('Should not normalize characters outside the configured mappings', () => {
@@ -81,13 +97,13 @@ describe('replaceSpecialCharacters function', () => {
     let outputs: string[]
 
     try {
-      outputs = ['Café', 'Café', '𝐀'].map((text) => replaceSpecialCharacters(text))
+      outputs = ['Café', 'Cafe\u0301', '𝐀'].map((text) => replaceSpecialCharacters(text))
     } finally {
       Object.defineProperty(String.prototype, 'normalize', normalizeDescriptor)
     }
 
     // Precomposed letters are still mapped; decomposed and mathematical letters require normalize.
-    expect(outputs).toEqual(['Cafe', 'Café', '𝐀'])
+    expect(outputs).toEqual(['Cafe', 'Cafe\u0301', '𝐀'])
   })
 
   test('Should convert thorn, eng, and kra characters', () => {
@@ -150,7 +166,7 @@ describe('replaceSpecialCharacters function', () => {
 
   test('Should convert long s to s', () => {
     expect(replaceSpecialCharacters('Congreſs')).toEqual('Congress')
-    expect(replaceSpecialCharacters('ſ ẛ ẛ')).toEqual('s s s')
+    expect(replaceSpecialCharacters('ſ ẛ ſ\u0307')).toEqual('s s s')
   })
 
   test('Should keep empty strings unchanged', () => {
@@ -210,7 +226,7 @@ describe('replaceSpecialCharacters function', () => {
 
     for (const { base, letters } of diacritics) {
       for (const character of letters) {
-        const decomposed = character.normalize('NFKD').replace(/[̀-ͯ]/g, '')
+        const decomposed = character.normalize('NFKD').replace(/[\u0300-\u036F]/g, '')
 
         if (/^[A-Za-z]+$/.test(decomposed) && decomposed !== base) {
           mismatches.push({ base, character, decomposed })

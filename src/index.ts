@@ -9,6 +9,7 @@ const diacriticsMap = diacritics.reduce<Record<string, string>>((map, { base, le
 }, {})
 
 const decomposedCharacterPattern = /[\s\S][\u0300-\u036F]+/g
+const combiningMarkPattern = /[\u0300-\u036F]/g
 const mathematicalAlphanumericStart = 0x1d400
 const mathematicalAlphanumericEnd = 0x1d7ff
 const asciiLetterPattern = /^[A-Za-z]$/
@@ -56,7 +57,10 @@ function replaceSpecialCharacters (text: unknown): unknown {
   const normalizedText =
     typeof text.normalize === 'function'
       ? text.replace(decomposedCharacterPattern, (sequence) =>
-          diacriticsMap[sequence[0]] ? sequence.normalize('NFC') : sequence,
+          // Marks without a precomposed form for this letter would otherwise remain in the output.
+          diacriticsMap[sequence[0]]
+            ? sequence.normalize('NFC').replace(combiningMarkPattern, '')
+            : sequence,
         )
       : text
 
