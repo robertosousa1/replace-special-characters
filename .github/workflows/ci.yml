@@ -62,3 +62,12 @@ jobs:
       - run: npm install --prefix runtime-consumer ./runtime-package/package.tgz --ignore-scripts --no-package-lock --no-save
       - run: node ../tests/runtime-smoke.cjs replace-special-characters
         working-directory: runtime-consumer
+      # Node.js 12.0.0 has no unflagged ES module support. The consumer package.json stops Node.js
+      # from resolving the package name to this checkout through package self-reference.
+      - name: Run ES module smoke test
+        if: matrix.node != '12.0.0'
+        run: |
+          echo '{ "private": true }' > package.json
+          cp ../tests/runtime-smoke.mjs runtime-smoke.mjs
+          node runtime-smoke.mjs
+        working-directory: runtime-consumer

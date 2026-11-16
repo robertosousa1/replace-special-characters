@@ -4,6 +4,7 @@
       "src/**/*.ts",
       "tests/**/*.ts",
       "tests/**/*.cjs",
+      "tests/**/*.mjs",
       "scripts/**/*.cjs",
       "commitlint.config.cjs",
       "vitest.config.ts"
