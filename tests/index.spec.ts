@@ -108,6 +108,11 @@ describe('replaceSpecialCharacters function', () => {
     expect(replaceSpecialCharacters('straße ẞ')).toEqual('strase S')
   })
 
+  test('Should convert long s to s', () => {
+    expect(replaceSpecialCharacters('Congreſs')).toEqual('Congress')
+    expect(replaceSpecialCharacters('ſ ẛ ẛ')).toEqual('s s s')
+  })
+
   test('Should keep empty strings unchanged', () => {
     expect(replaceSpecialCharacters('')).toEqual('')
   })
@@ -158,6 +163,22 @@ describe('replaceSpecialCharacters function', () => {
     }
 
     expect(new Set(mappedCharacters).size).toEqual(mappedCharacters.length)
+  })
+
+  test('Should map characters that decompose to ASCII letters to that decomposition', () => {
+    const mismatches: Array<{ base: string, character: string, decomposed: string }> = []
+
+    for (const { base, letters } of diacritics) {
+      for (const character of letters) {
+        const decomposed = character.normalize('NFKD').replace(/[̀-ͯ]/g, '')
+
+        if (/^[A-Za-z]+$/.test(decomposed) && decomposed !== base) {
+          mismatches.push({ base, character, decomposed })
+        }
+      }
+    }
+
+    expect(mismatches).toEqual([])
   })
 
   test('Should preserve every unmapped BMP character', () => {
