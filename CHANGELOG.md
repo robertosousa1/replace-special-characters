@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.0.2](https://github.com/robertosousa1/replace-special-characters/compare/v2.0.1...v2.0.2) (2026-11-16)
+
+
+### Bug Fixes
+
+* map long s (ſ) to s instead of l ([#24](https://github.com/robertosousa1/replace-special-characters/issues/24)) ([194e337](https://github.com/robertosousa1/replace-special-characters/commit/194e3371f63df598d49be08fa5fdf99dbfec5296))
+
 ## [2.0.1](https://github.com/robertosousa1/replace-special-characters/compare/v2.0.0...v2.0.1) (2026-07-29)
 
 
