@@ -1,7 +1,15 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, expectTypeOf, test } from 'vitest'
 
 import replaceSpecialCharacters from '../src'
 import diacritics from '../src/diacritics'
+
+const mappedCharacters = new Map<string, string>()
+
+for (const { base, letters } of diacritics) {
+  for (const character of letters) {
+    mappedCharacters.set(character, base)
+  }
+}
 
 describe('replaceSpecialCharacters function', () => {
   test('Should accept a union of all supported input types', () => {
@@ -12,6 +20,14 @@ describe('replaceSpecialCharacters function', () => {
     expect(normalize('Olá')).toBe('Ola')
     expect(normalize(null)).toBeNull()
     expect(normalize(undefined)).toBeUndefined()
+  })
+
+  test('Should narrow the return type to the input type', () => {
+    expectTypeOf(replaceSpecialCharacters('Olá')).toEqualTypeOf<string>()
+    expectTypeOf(replaceSpecialCharacters(null)).toEqualTypeOf<null>()
+    expectTypeOf(replaceSpecialCharacters(undefined)).toEqualTypeOf<undefined>()
+    // @ts-expect-error Non-string values are outside the typed API.
+    expectTypeOf(replaceSpecialCharacters).toBeCallableWith(1)
   })
 
   test('Should convert special characters to common characters', () => {
@@ -41,6 +57,11 @@ describe('replaceSpecialCharacters function', () => {
     )
   })
 
+  test('Should convert letters with multiple combining marks in any order', () => {
+    expect(replaceSpecialCharacters('Việt Việt')).toEqual('Viet Viet')
+    expect(replaceSpecialCharacters('ấ ǘ')).toEqual('a u')
+  })
+
   test('Should not normalize characters outside the configured mappings', () => {
     expect(replaceSpecialCharacters('Ω K Å 豈 α\u0301')).toEqual('Ω K Å 豈 α\u0301')
   })
@@ -57,19 +78,30 @@ describe('replaceSpecialCharacters function', () => {
       value: undefined,
     })
 
-    let output: string
+    let outputs: string[]
 
     try {
-      output = replaceSpecialCharacters('Café')
+      outputs = ['Café', 'Café', '𝐀'].map((text) => replaceSpecialCharacters(text))
     } finally {
       Object.defineProperty(String.prototype, 'normalize', normalizeDescriptor)
     }
 
-    expect(output).toEqual('Cafe')
+    // Precomposed letters are still mapped; decomposed and mathematical letters require normalize.
+    expect(outputs).toEqual(['Cafe', 'Café', '𝐀'])
   })
 
   test('Should convert thorn, eng, and kra characters', () => {
     expect(replaceSpecialCharacters('Þing þorn Ŋŋ ĸ')).toEqual('THing thorn Nn k')
+  })
+
+  test.each([
+    ['Polish', 'Łódź Wrocław', 'Lodz Wroclaw'],
+    ['Vietnamese', 'Đà Nẵng đường', 'Da Nang duong'],
+    ['Danish and Norwegian', 'Ørsted smørrebrød', 'Orsted smorrebrod'],
+    ['Turkish', 'Işık', 'Isik'],
+    ['Maltese', 'Ħamrun ħobż', 'Hamrun hobz'],
+  ])('Should convert %s letters without a Unicode decomposition', (_language, input, output) => {
+    expect(replaceSpecialCharacters(input)).toEqual(output)
   })
 
   test('Should convert supplementary mathematical Latin letters', () => {
@@ -102,6 +134,13 @@ describe('replaceSpecialCharacters function', () => {
 
   test('Should preserve mathematical Greek letters and digits', () => {
     expect(replaceSpecialCharacters('𝚨 𝛀 𝟘')).toEqual('𝚨 𝛀 𝟘')
+  })
+
+  test('Should preserve supplementary letters outside the mathematical block', () => {
+    const squaredA = '\u{1F130}'
+
+    expect(squaredA.normalize('NFKD')).toEqual('A')
+    expect(replaceSpecialCharacters(squaredA)).toEqual(squaredA)
   })
 
   test('Should preserve the historical sharp S mapping', () => {
@@ -181,15 +220,24 @@ describe('replaceSpecialCharacters function', () => {
     expect(mismatches).toEqual([])
   })
 
-  test('Should preserve every unmapped BMP character', () => {
-    const mappedCharacters = new Map<string, string>()
-    const unexpectedChanges: Array<{ actual: string, character: string, expected: string }> = []
+  test('Should map uppercase and lowercase forms to the same letters', () => {
+    const mismatches: string[] = []
 
-    for (const { base, letters } of diacritics) {
-      for (const character of letters) {
-        mappedCharacters.set(character, base)
+    for (const [character, base] of mappedCharacters) {
+      for (const partner of [character.toLowerCase(), character.toUpperCase()]) {
+        const partnerBase = mappedCharacters.get(partner)
+
+        if (partnerBase !== undefined && partnerBase.toLowerCase() !== base.toLowerCase()) {
+          mismatches.push(`${character} -> ${base}, ${partner} -> ${partnerBase}`)
+        }
       }
     }
+
+    expect(mismatches).toEqual([])
+  })
+
+  test('Should preserve every unmapped BMP character', () => {
+    const unexpectedChanges: Array<{ actual: string, character: string, expected: string }> = []
 
     for (let codePoint = 0; codePoint <= 0xffff; codePoint += 1) {
       const character = String.fromCharCode(codePoint)
